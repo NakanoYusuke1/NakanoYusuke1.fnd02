@@ -1,0 +1,214 @@
+
+h1{
+    text-align:center;
+    background: #3af682  ;
+    /* font-family: "メイリオ", Meiryo, sans-serif; */
+}
+
+h2{
+    text-align:center;
+    background: #ffb363  ;
+}
+
+
+.pointmeter{
+    text-align:center;
+}
+
+.meter{
+    width: 500px;
+    height: 100px;
+}
+
+/* 出勤・退勤ボタン */
+.kintaiButton{
+    /* text-align:center; */
+    display:flex;
+    gap: 100px; /* ボタン間の隙間 */
+    justify-content: center;
+    padding: 10px;
+    }
+
+.clockInBtn{
+    width: 300px;
+    height: 100px;
+    font-size: 200%;
+    color: #000;
+    background-color: #fff100;
+    /* background-color: #fff100; */
+    border: none;   
+    border-bottom: 5px solid #ccc100;
+    }
+
+.clockInBtn:hover {
+    margin-top: 3px;
+    color: #000;
+    background: #fff20a;
+    border-bottom: 2px solid #ccc100;
+}
+    
+.clockOutBtn{
+    width: 300px;
+    height: 100px;
+    font-size: 200%;
+    color: #000;
+    background-color: #fff100;
+    border: none;   
+    border-bottom: 5px solid #ccc100;
+    }
+
+.clockOutBtn:hover {
+  margin-top: 3px;
+  color: #000;
+  background: #fff20a;
+  border-bottom: 2px solid #ccc100;
+}
+
+
+
+
+/* 出勤・退勤時刻の表示 */
+.kintaiTime{
+    display:flex;
+    gap: 165px;
+    padding-left: 360px; 
+}
+
+/* 修正ボタン
+.fixKintaiButton{
+    display:flex;
+    justify-content: center;
+    gap: 250px; 
+} */
+
+/* 修正日時入力フォーム */
+.InputFixedTime{
+    display:flex;
+    justify-content: center;
+    gap: 200px; 
+}
+
+.workingHour{
+    text-align:center;
+    font-size: 200%;
+    padding: 20px;
+}
+
+/* 全ての記録表 */
+.allRecord{
+    display:flex;
+    text-align:center;
+}
+
+.allRecord2{
+    display:flex;
+    text-align:center;
+}
+
+
+
+/* 睡眠時間記録表 */
+/* 目標とポイント全体 */
+.goalAndPoint{
+    border: 5px solid #fff86a;
+    padding:10px;
+}
+/* 目標 */
+#goalOfSleepTime{
+    /* padding:5px; */
+    font-size: 180%;
+}
+/* 睡眠合計ポイント */
+#sumPointOfSleep{
+    /* padding:5px; */
+    font-size: 180%;
+}
+
+.inputSleep{
+    padding:30px;
+}
+
+.sleepRecord{
+    padding:10px;
+    
+}
+
+/* 食事記録表 */
+/* 目標とポイント全体 */
+.goalAndPoint2{
+    border: 5px solid #fff86a;
+    padding:10px;
+}
+
+/* 目標 */
+#goalOfCalorie{
+    font-size: 180%;
+}
+/* 合計ポイント */ 
+#sumPointOfFood{
+    font-size: 180%;
+}
+
+.inputFood{
+    padding:30px;
+}
+
+.foodRecord{
+    padding:10px;  
+} 
+
+#foodCalorie{
+    width: 20%
+}
+
+
+/* 運動記録表 */
+/* 目標とポイント全体 */
+.goalAndPoint3{
+    border: 5px solid #fff86a;
+    padding:10px;
+}
+
+/* 目標 */
+#goalOfFitness{
+    font-size: 180%;
+}
+/* 合計ポイント */ 
+#sumPointOfFitness{
+    font-size: 180%;
+}
+
+.inputFitness{
+    padding:30px;
+}
+
+.fitnessRecord{
+    padding:10px;  
+} 
+
+#fitnessSteps{
+    width: 30%
+}
+
+/* 表の表示（3つの表すべて） */
+
+table {
+    border-collapse:  collapse; /* セルの線を重ねる */
+}
+
+th,td {
+    border: solid 1px;              /* 枠線指定 */
+    padding: 5px;      /* 余白指定 */
+    width:  140px; 
+    text-align:  center; 
+}
+
+
+.sleepRecord2{
+    padding:10px
+}
+
+
+.sleepRecord3{
+    padding:10px
+}
