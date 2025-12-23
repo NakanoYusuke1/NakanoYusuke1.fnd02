@@ -15,10 +15,10 @@ const displayWorkingHour = document.querySelector(".workingHour");
 const sumPointOfSleep = document.getElementById("sumPointOfSleep");
 const sumPointOfFood = document.getElementById("sumPointOfFood");
 const allPoints = document.getElementById("allPoints");
+const caution = document.getElementById("caution");
 
 //meter要素を取得
 const meterElement = document.querySelector(".meter");
-
 
 
 //クリックした時に時間をしまっておく場所
@@ -55,8 +55,9 @@ saveClockOutBtn.addEventListener('click', () => {
     //workingTimeの表示
     const workingTime = now2 - now1;
     displayWorkingHour.innerText =
-     `今日の勤務時間は${Math.floor(workingTime/1000/60/60)%24}時間${Math.floor(workingTime/1000/60)%60}分です！`
+     `今日の勤務時間は${Math.floor(workingTime/1000/60/60)%24 - 1}時間${Math.floor(workingTime/1000/60)%60}分です！`
     //  ${Math.floor(workingTime/1000)%60}秒
+    //　昼食の時間を抜くため-1時間する
 });
 
 
@@ -107,13 +108,112 @@ FixedClockOutTime.addEventListener("change", (e) => {
     if (now3 === "") {
       const workingTime = now4 - now1;
       displayWorkingHour.innerText =
-      `今日の勤務時間は${Math.floor(workingTime/1000/60/60)%24}時間${Math.floor(workingTime/1000/60)%60}分です！`;
+      `今日の勤務時間は${Math.floor(workingTime/1000/60/60)%24 - 1}時間${Math.floor(workingTime/1000/60)%60}分です！`;
     } else {
       const workingTime = now4 - now3;
       displayWorkingHour.innerText =
-      `今日の勤務時間は${Math.floor(workingTime/1000/60/60)%24}時間${Math.floor(workingTime/1000/60)%60}分です！`;
+      `今日の勤務時間は${Math.floor(workingTime/1000/60/60)%24 - 1}時間${Math.floor(workingTime/1000/60)%60}分です！`;
     }
 });
+
+
+
+// 残業時間記録表
+
+//目標値
+const WeeklyOverTime = 10;
+const DaylyOverTime = WeeklyOverTime / 5;
+const goalOfWeeklyOverTime = document.getElementById("goalOfWeeklyOverTime");
+goalOfWeeklyOverTime.innerText = `目標週間残業時間：${WeeklyOverTime}時間（日あたり：${DaylyOverTime}時間）`;
+const sumPointOfOverTime = document.getElementById("sumPointOfOverTime");
+
+
+//過去記録
+const arrayOfOverTime = [
+  {date : "2025-12-17", time : 2.0},
+  // {date : "2025-12-18", time : 1.5},
+  // {date : "2025-12-19", time : 1.0},
+  // {date : "2025-12-20", time : 3.0},
+  // {date : "2025-12-21", time : 2.0},
+];
+
+for (let i = 0; i < arrayOfOverTime.length; i++) {
+  if (arrayOfOverTime[i]["time"] >= DaylyOverTime) {
+    arrayOfOverTime[i]["point"] = (arrayOfOverTime[i]["time"] - DaylyOverTime) * -10; //目標をオーバーした時間×10ptをマイナスとする
+  } else {
+    arrayOfOverTime[i]["point"] = (DaylyOverTime - arrayOfOverTime[i]["time"]) * 10; //目標をオーバーした時間×5ptをプラスとする
+  }
+}
+
+// 過去記録から表に記入
+const overTimeList = document.getElementById("recordTableBody_overTime");
+
+arrayOfOverTime.forEach((obj) => {
+  const tr = document.createElement("tr");
+  overTimeList.appendChild(tr);
+
+  for (const innerObj2 in obj) {
+    const td = document.createElement("td");
+    td.textContent = obj[innerObj2];
+    tr.appendChild(td);
+  }
+});
+
+  sumPointS0();
+
+
+// 表に追加する関数作成
+function addOverTime() {
+  const inputDate = `${now1.getFullYear()}-${now1.getMonth() + 1}-${now1.getDate()}`;
+  let workingTime = 0;
+  if (now3 === "" && now4 === "") {
+    workingTime = now2 - now1;
+  } else if (now3 === "" && now4 !== "") {
+    workingTime = now4 - now1;
+  } else if (now3 !== "" && now4 === "") {
+    workingTime = now2 - now3;
+  } else {
+    workingTime = now4 -now3;
+  }
+  console.log("OT1", workingTime);
+  const inputOverTime = Math.floor(workingTime/1000/60/60)%24 - 1 - 8; //休憩1時間、定時は8時間とする
+  console.log(inputOverTime);
+  const tableBody = document.getElementById('recordTableBody_overTime');
+
+  let overTimePoint = 0;
+  
+  if (inputOverTime >= DaylyOverTime) {
+    overTimePoint = (inputOverTime - DaylyOverTime) * -10;
+  } else {
+    overTimePoint = (DaylyOverTime - inputOverTime) * 10;
+  }
+
+  // 新しい行を作成し、データを追加
+  const newRow = tableBody.insertRow();
+  const cellDate = newRow.insertCell(0);
+  const cellTime = newRow.insertCell(1);
+  const cellPoint = newRow.insertCell(2);
+
+
+  cellDate.textContent = inputDate;
+  cellTime.textContent = inputOverTime;
+  cellPoint.textContent = overTimePoint;
+  sumPointS0();
+  sumAllPoints();
+}
+
+
+//表から点数を総合得点を取得(残業ver)
+function sumPointS0() {
+  const tableElement = document.getElementById('tableOfOverTime');
+  const rowElement = tableElement.rows;
+  let point = 0;
+  for (let i = 1; i < rowElement.length; i++) {
+      point += parseInt(rowElement[i].cells[2].innerText);
+  }
+  sumPointOfOverTime.innerText = `現在のポイント：${point} pt`;
+  return point;
+}
 
 
 
@@ -126,18 +226,18 @@ goalOfSleepTime.innerText = `目標睡眠時間：${sleepTimeGoal}時間`;
 
 // 過去記録
 const arrayOfSleepTime = [
-  {date : "2025-12-17", time : 6.5},
-  {date : "2025-12-18", time : 7.5},
-  {date : "2025-12-19", time : 8.0},
-  {date : "2025-12-20", time : 8.0},
-  {date : "2025-12-21", time : 9.0},
+  // {date : "2025-12-17", time : 6.5},
+  // {date : "2025-12-18", time : 7.5},
+  // {date : "2025-12-19", time : 8.0},
+  // {date : "2025-12-20", time : 8.0},
+  // {date : "2025-12-21", time : 9.0},
 ]
 
 for (let i = 0; i < arrayOfSleepTime.length; i++) {
   if (arrayOfSleepTime[i]["time"] >= sleepTimeGoal) {
-    arrayOfSleepTime[i]["point"] = 1; 
+    arrayOfSleepTime[i]["point"] = (arrayOfSleepTime[i]["time"] - sleepTimeGoal) * 10; 
   } else {
-    arrayOfSleepTime[i]["point"] = -1;
+    arrayOfSleepTime[i]["point"] = (sleepTimeGoal - arrayOfSleepTime[i]["time"]) * -10;
   }
 }
 
@@ -170,9 +270,9 @@ function addRecord() {
   let sleepPoint = 0;
   
   if (sleepTime >= sleepTimeGoal) {
-    sleepPoint = 1;
+    sleepPoint = (sleepTime - sleepTimeGoal) * 10;
   } else {
-    sleepPoint = -1;
+    sleepPoint = (sleepTimeGoal - sleepTime) * -10;
   }
 
   // 新しい行を作成し、データを追加
@@ -214,18 +314,18 @@ goalOfCalorie.innerText = `目標カロリー：${calorieGoal}kcal以下`;
 
 // 過去記録
 const arrayOfFood = [
-  {date : "2025-12-17", calorie : 650},
-  {date : "2025-12-18", calorie : 700},
-  {date : "2025-12-19", calorie : 1000},
-  {date : "2025-12-20", calorie : 500},
-  {date : "2025-12-21", calorie : 500},
+  // {date : "2025-12-17", calorie : 650},
+  // {date : "2025-12-18", calorie : 700},
+  // {date : "2025-12-19", calorie : 1000},
+  // {date : "2025-12-20", calorie : 500},
+  // {date : "2025-12-21", calorie : 500},
 ]
 
 for (let i = 0; i < arrayOfFood.length; i++) {
   if (arrayOfFood[i]["calorie"] <= calorieGoal) {
-    arrayOfFood[i]["point"] = 1; 
+    arrayOfFood[i]["point"] = 2; 
   } else {
-    arrayOfFood[i]["point"] = -1;
+    arrayOfFood[i]["point"] = -2;
   }
 }
 
@@ -257,9 +357,9 @@ function addRecord2() {
   let foodPoint = 0;
   
   if (foodCalorie >= calorieGoal) {
-    foodPoint = 1;
+    foodPoint = 2;
   } else {
-    foodPoint = -1;
+    foodPoint = -2;
   }
 
   // 新しい行を作成し、データを追加
@@ -297,22 +397,22 @@ function sumPointS2() {
 //歩数の目標値
 const fitnessGoal = 8000;
 const goalOfFitness = document.getElementById("goalOfFitness");
-goalOfFitness.innerText = `目標カロリー：${fitnessGoal}歩`;
+goalOfFitness.innerText = `目標歩数：${fitnessGoal}歩`;
 
 // 過去記録
 const arrayOfFitness = [
-  {date : "2025-12-17", steps : 10000},
-  {date : "2025-12-18", steps : 12500},
-  {date : "2025-12-19", steps : 300},
-  {date : "2025-12-18", steps : 7000},
-  {date : "2025-12-19", steps : 6000}, 
+  // {date : "2025-12-17", steps : 8000},
+  // {date : "2025-12-18", steps : 12500},
+  // {date : "2025-12-19", steps : 300},
+  // {date : "2025-12-18", steps : 7000},
+  // {date : "2025-12-19", steps : 6000}, 
 ]
 
 for (let i = 0; i < arrayOfFitness.length; i++) {
   if (arrayOfFitness[i]["steps"] >= fitnessGoal) {
-    arrayOfFitness[i]["point"] = 1; 
+    arrayOfFitness[i]["point"] = 2; 
   } else {
-    arrayOfFitness[i]["point"] = -1;
+    arrayOfFitness[i]["point"] = -2;
   }
 }
 
@@ -344,9 +444,9 @@ function addRecord3() {
   let fitnessPoint = 0;
   
   if (steps >= fitnessGoal) {
-    fitnessPoint = 1;
+    fitnessPoint = 2;
   } else {
-    fitnessPoint = -1;
+    fitnessPoint = -2;
   }
 
   // 新しい行を作成し、データを追加
@@ -381,8 +481,14 @@ function sumPointS3() {
  sumAllPoints();
 
 function sumAllPoints () {
-  let sumPoints = sumPointS() + sumPointS2() + sumPointS3();
-  allPoints.innerText = `余力残高：${sumPoints}`;
-  console.log(meterElement);
-  meterElement.value = sumPoints;
-}
+  let sumPoints = sumPointS0() + sumPointS() + sumPointS2() + sumPointS3();
+  allPoints.innerText = `余力残高：${100 + sumPoints}`;
+  meterElement.value = 100 + sumPoints;
+  if (100 + sumPoints > 50) {
+    caution.innerText = "まだまだ元気ですね";
+  } else if(100 + sumPoints <= 50 && 100 + sumPoints > 30) {
+    caution.innerText = "今日は早く帰ろうか";
+  } else {
+    caution.innerText = "体力限界！！";
+  }
+  }
