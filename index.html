@@ -11,14 +11,15 @@
 <body>
   <h1>余力残高 -Your Daily Energy Buffer-</h1>
   <div class="pointmeter">
-    <div id="allPoints">現在のポイント：</div>
-    <meter class="meter" low="10" max="30"></meter>
+    <div id="allPoints"></div>
+    <meter class="meter" low="30" max="100"></meter>
+    <div id="caution"></div>
   </div>
-  <h2>勤怠管理</h2>
+  <!-- <h2>勤怠管理</h2> -->
   <!-- 出勤・退勤ボタンの表示 -->
   <div class="kintaiButton">
-    <button class="clockInBtn">Start!</button>
-    <button class="clockOutBtn">Done!</button>
+    <button class="clockInBtn">Start Work!</button>
+    <button class="clockOutBtn">End Work !</button>
   </div>
 
   <!-- 出勤・退勤時間の表示 -->
@@ -44,11 +45,36 @@
     <div class="workingHour"></div>
   </div>
 
-  <!-- 健康管理入力 -->
-  <h2>健康管理</h2>
+  <!-- 残業時間記録フォーム -->
+   <div class="overTimeSleepTime">
+    <div class ="overTimeRecord">
+      <h3>残業時間記録</h3>
 
-  <!-- 睡眠時間記録フォーム -->
-  <div class="allRecord">
+      <div class="goalAndPoint">
+        <!-- 今週の残業時間の目標値 -->
+        <div id="goalOfWeeklyOverTime"></div> 
+        <!-- 現在の残業時間のポイント -->
+        <div id="sumPointOfOverTime"></div>
+      </div>
+
+      <div class="inputOverTIme">
+        <button onclick="addOverTime()">記録</button>
+      </div>
+      
+      <table id="tableOfOverTime">
+        <thead>
+          <tr>
+              <th>日付</th>
+              <th>残業時間 (時間)</th>
+              <th>点数</th>
+          </tr>
+        </thead>
+        <tbody id="recordTableBody_overTime">
+            <!-- 記録はここに追加されます -->
+        </tbody>
+      </table>
+    </div>
+
     <div class ="sleepRecord">
       <h3>睡眠時間記録</h3>
 
@@ -78,9 +104,17 @@
         </tbody>
       </table>
     </div>
+</div>
+
+  <!-- 健康管理入力 -->
+  <h2>健康オプション</h2>
+
+  <!-- 睡眠時間記録フォーム -->
+  <div class="allRecord">
+    
 
     <!-- 食事記録フォーム --> 
-<div class="allRecord2">
+  <div class="allRecord2">
     <div class ="foodRecord">
       <h3>食事記録</h3>
 
@@ -112,8 +146,8 @@
     </div>
 
     <!-- 運動記録フォーム --> 
-<div class="allRecord3">
-    <div class ="fitnessRecord">
+   <div class="allRecord3">
+      <div class ="fitnessRecord">
       <h3>運動記録</h3>
 
       <div class="goalAndPoint3">
@@ -142,6 +176,7 @@
         </tbody>
       </table>
     </div>
+  </div>
 
   <!-- スクリプトは最後に読み込ませる -->
   <script type="text/javascript" src="script.js"></script>
