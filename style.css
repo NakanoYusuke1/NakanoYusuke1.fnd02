@@ -1,3 +1,8 @@
+body {
+    font-family: "Meiryo" "メイリオ";  
+}
+
+
 
 h1{
     text-align:center;
@@ -6,10 +11,19 @@ h1{
 }
 
 h2{
+    /* padding: 30px; */
     text-align:center;
     background: #ffb363  ;
 }
 
+h3{
+    font-size: 150%;
+}
+
+#allPoints{
+    font-size: 130%;
+    font-weight: bold;
+}
 
 .pointmeter{
     text-align:center;
@@ -19,6 +33,15 @@ h2{
     width: 500px;
     height: 100px;
 }
+
+/* caution */
+#caution{
+    padding-bottom: 20px;
+    font-size: 150%;
+}
+
+
+
 
 /* 出勤・退勤ボタン */
 .kintaiButton{
@@ -34,7 +57,7 @@ h2{
     height: 100px;
     font-size: 200%;
     color: #000;
-    background-color: #fff100;
+    background-color: #fff541;
     /* background-color: #fff100; */
     border: none;   
     border-bottom: 5px solid #ccc100;
@@ -52,7 +75,7 @@ h2{
     height: 100px;
     font-size: 200%;
     color: #000;
-    background-color: #fff100;
+    background-color: #fff541;
     border: none;   
     border-bottom: 5px solid #ccc100;
     }
@@ -94,7 +117,50 @@ h2{
     padding: 20px;
 }
 
-/* 全ての記録表 */
+/* 残業時間＋睡眠時間全体 */
+.overTimeSleepTime{
+    padding-left: 80px;
+    gap: 100px;
+    padding-bottom: 50px;
+}
+
+
+/* 残業時間記録表 */
+/* 目標とポイント全体 */
+.goalAndPoint{
+    border: 5px solid #fff86a;
+    padding-bottom:10px;
+}
+#goalOfWeeklyOverTime{
+    font-size: 150%;
+}
+
+#sumPointOfOverTime{
+    font-size: 150%;
+}
+
+.overTimeSleepTime{
+    display:flex;
+    text-align:center;
+}
+
+.overTimeRecord{
+    text-align:center;
+}
+
+.inputOverTIme{
+    padding:30px;
+}
+
+
+#tableOfOverTime{
+    margin:auto;
+}
+
+
+
+
+/* 食事と運動の記録表 */
 .allRecord{
     display:flex;
     text-align:center;
@@ -103,6 +169,8 @@ h2{
 .allRecord2{
     display:flex;
     text-align:center;
+    padding-left: 140px;
+    gap: 120px;
 }
 
 
@@ -116,22 +184,22 @@ h2{
 /* 目標 */
 #goalOfSleepTime{
     /* padding:5px; */
-    font-size: 180%;
+    font-size: 150%;
 }
 /* 睡眠合計ポイント */
 #sumPointOfSleep{
     /* padding:5px; */
-    font-size: 180%;
+    font-size: 150%;
 }
 
 .inputSleep{
     padding:30px;
 }
 
-.sleepRecord{
+/* .sleepRecord{
     padding:10px;
     
-}
+} */
 
 /* 食事記録表 */
 /* 目標とポイント全体 */
@@ -142,11 +210,11 @@ h2{
 
 /* 目標 */
 #goalOfCalorie{
-    font-size: 180%;
+    font-size: 150%;
 }
 /* 合計ポイント */ 
 #sumPointOfFood{
-    font-size: 180%;
+    font-size: 150%;
 }
 
 .inputFood{
@@ -171,11 +239,11 @@ h2{
 
 /* 目標 */
 #goalOfFitness{
-    font-size: 180%;
+    font-size: 150%;
 }
 /* 合計ポイント */ 
 #sumPointOfFitness{
-    font-size: 180%;
+    font-size: 150%;
 }
 
 .inputFitness{
@@ -203,7 +271,7 @@ th,td {
     text-align:  center; 
 }
 
-
+/* 
 .sleepRecord2{
     padding:10px
 }
@@ -211,4 +279,4 @@ th,td {
 
 .sleepRecord3{
     padding:10px
-}
+} */
