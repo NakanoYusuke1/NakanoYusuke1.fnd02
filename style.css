@@ -1,5 +1,7 @@
 body {
-    font-family: "Meiryo" "メイリオ";  
+    font-family: "游ゴシック" "Century";  
+    /* font-family: "Meiryo UI";   */
+    /* font-family: "BIZ UDPゴシック";   */
 }
 
 
@@ -50,6 +52,7 @@ h3{
     gap: 100px; /* ボタン間の隙間 */
     justify-content: center;
     padding: 10px;
+    font-family: "Century";  
     }
 
 .clockInBtn{
