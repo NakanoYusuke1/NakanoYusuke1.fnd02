@@ -37,8 +37,12 @@ saveClockInBtn.addEventListener('click', () => {
     const nowMinute1 = now1.getMinutes();
 
     //div要素に時刻表示
+    if (nowMinute1 === 0){
+    saveClockInTime.innerText = `出勤時間： ${nowYear1}/${nowMon1}/${nowDate1} ${nowHour1}:00`;
+    } else {
     saveClockInTime.innerText = `出勤時間： ${nowYear1}/${nowMon1}/${nowDate1} ${nowHour1}:${nowMinute1}`;
-});
+    }
+  });
 
 //クリック時の「退勤」日時情報を取得
 saveClockOutBtn.addEventListener('click', () => {
@@ -74,8 +78,12 @@ FixedClockInTime.addEventListener("change", (e) => {
     const nowHour3 = now3.getHours();
     const nowMinute3 = now3.getMinutes();
     //div要素に時刻表示
+    // saveClockInTime.innerText = `出勤時間： ${nowYear3}/${nowMon3}/${nowDate3} ${nowHour3}:${nowMinute3}`;
+    if (nowMinute3 === 0){
+    saveClockInTime.innerText = `出勤時間： ${nowYear3}/${nowMon3}/${nowDate3} ${nowHour3}:00`;
+    } else {
     saveClockInTime.innerText = `出勤時間： ${nowYear3}/${nowMon3}/${nowDate3} ${nowHour3}:${nowMinute3}`;
-    
+    }
     //workingTimeの更新
     if(now4 === "") {
       const workingTime = now2 - now3;
@@ -356,7 +364,7 @@ function addRecord2() {
   const foodCalorie = inputfoodCalrie.value;
   let foodPoint = 0;
   
-  if (foodCalorie >= calorieGoal) {
+  if (foodCalorie <= calorieGoal) {
     foodPoint = 2;
   } else {
     foodPoint = -2;
